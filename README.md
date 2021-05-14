@@ -2,7 +2,7 @@
 
 ## Developed by: [Pavia Roberto](https://github.com/bloodsky)
 
-Testing vectors addition with different kernel call:
+Testing vectors addition $w = u + v$ with different kernel call:
     
     VectorAdd<<<1,1>>>
     VectorAdd<<<1,256>>>
@@ -12,11 +12,11 @@ Each vector is made up of ten million elements. The first example involves a sin
 
 # Speedup & Profiling
 
-|   Speedup   |  <<<1,1>>>  | <<<1,256>>> | <<<N,256>>> |
-|-------------|-------------|-------------|-------------|
-|  <<<1,1>>>  |      1      |      2      |      2      |
-| <<<1,256>>> |      2      |      1      |      2      |
-| <<<N,256>>> |      2      |      2      |      1      |
+The following improvements are achieved:
+
+$(1,1)\to(1,m)\approx39$
+$(1,m)\to(n,m)\approx41$
+$(1,1)\to(n,m)\approx1523$
 
     nvprof
 
