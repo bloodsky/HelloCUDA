@@ -11,9 +11,11 @@ Testing vectors addition with different kernel call:
 Each vector is made up of ten million elements. The first example involves a single block consisting of a single thread. It is interesting to consider this case for architectural and performance reasons. The other calls take into account the parallelism of the problem. The number of blocks is calculated based on the size of the vectors.
 
 # Speedup & Profiling
-| Attempt | #1  | #2  |
-| :---:   | :-: | :-: |
-| Seconds | 301 | 283 |
+
+|   Speedup   |  <<<1,1>>>  | <<<1,256>>> | <<<N,256>>> |
+|  <<<1,1>>>  |      1      |      2      |      2      |
+| <<<1,256>>> |      2      |      1      |      2      |
+| <<<N,256>>> |      2      |      2      |      1      |
 
     nvprof
 
