@@ -43,7 +43,7 @@ int main() {
     cudaMalloc((void **) &v_device, sizeof(float)*VECT_SIZE);
     cudaMalloc((void **) &w_device, sizeof(float)*VECT_SIZE);
 
-    // Trasferisco i dati dall'host area alla device area
+    // H --> D
     cudaMemcpy(u_device, u, sizeof(float)*VECT_SIZE, cudaMemcpyHostToDevice); 
     cudaMemcpy(v_device, v, sizeof(float)*VECT_SIZE, cudaMemcpyHostToDevice); 
     
@@ -51,7 +51,7 @@ int main() {
     int num_blocks = (VECT_SIZE/BLOCK_SIZE) + 1;
     VectorAdd<<<num_blocks,256>>>(w_device, u_device, v_device, VECT_SIZE);
 
-    // Copio dal risultato ottenuto sulla GPU nell'area dell'host
+    // D --> H
     cudaMemcpy(w, w_device, sizeof(float)*VECT_SIZE, cudaMemcpyDeviceToHost);
 
     // correct threshold?  
