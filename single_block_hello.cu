@@ -42,17 +42,17 @@ int main() {
     cudaMalloc((void **) &v_device, sizeof(float)*VECT_SIZE);
     cudaMalloc((void **) &w_device, sizeof(float)*VECT_SIZE);
 
-    // Trasferisco i dati dall'host area alla device area
+    // H --> D
     cudaMemcpy(u_device, u, sizeof(float)*VECT_SIZE, cudaMemcpyHostToDevice); 
     cudaMemcpy(v_device, v, sizeof(float)*VECT_SIZE, cudaMemcpyHostToDevice); 
     
     // Kernel call
     VectorAdd<<<1,256>>>(w_device, u_device, v_device, VECT_SIZE);
 
-    // Copio dal risultato ottenuto sulla GPU nell'area dell'host
+    // D --> H
     cudaMemcpy(w, w_device, sizeof(float)*VECT_SIZE, cudaMemcpyDeviceToHost);
 
-    // check --> 3 - 1 - 2 < 0.0000001 ?  
+    // check ?
     for (int i = 0; i < VECT_SIZE; i++) {
         if (!((w[i]-u[i]-v[i]) < THRESHOLD)) {
             fprintf(stderr,"Got mistake!\n");
